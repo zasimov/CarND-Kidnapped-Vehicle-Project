@@ -3,6 +3,10 @@
 #include "json.hpp"
 #include <math.h>
 #include "particle_filter.h"
+#include "journal.h"
+#include <memory>
+#include <cstdlib>
+
 
 using namespace std;
 
@@ -28,6 +32,15 @@ std::string hasData(std::string s) {
 int main()
 {
   uWS::Hub h;
+  std::shared_ptr<Journal> journal;
+
+  const char *journal_file = std::getenv("PF_JOURNAL_FILE");
+  if (journal_file) {
+    journal = std::make_shared<JournalFile>(journal_file);
+  } else{
+    journal = std::make_shared<Journal>();
+  }
+  journal->WriteHeader();
 
   //Set up parameters here
   double delta_t = 0.1; // Time elapsed between measurements [sec]
@@ -35,6 +48,8 @@ int main()
 
   double sigma_pos [3] = {0.3, 0.3, 0.01}; // GPS measurement uncertainty [x [m], y [m], theta [rad]]
   double sigma_landmark [2] = {0.3, 0.3}; // Landmark measurement uncertainty [x [m], y [m]]
+
+  const int num_particles = 103;
 
  // Read map data
   Map map;
@@ -44,7 +59,7 @@ int main()
   }
 
   // Create particle filter
-  ParticleFilter pf;
+  ParticleFilter pf(journal, num_particles);
 
   h.onMessage([&pf,&map,&delta_t,&sensor_range,&sigma_pos,&sigma_landmark](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
