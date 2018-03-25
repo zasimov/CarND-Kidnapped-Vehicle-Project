@@ -7,7 +7,7 @@ All you will submit is your completed version of `particle_filter.cpp`, which is
 ## Project Introduction
 Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
 
-In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data. 
+In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
 
 ## Running the Code
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
@@ -40,11 +40,11 @@ INPUT: values provided by the simulator to the c++ program
 
 // sense noisy position data from the simulator
 
-["sense_x"] 
+["sense_x"]
 
-["sense_y"] 
+["sense_y"]
 
-["sense_theta"] 
+["sense_theta"]
 
 // get the previous velocity and yaw rate to predict the particle's transitioned state
 
@@ -54,9 +54,9 @@ INPUT: values provided by the simulator to the c++ program
 
 // receive noisy observation data from the simulator, in a respective list of x/y values
 
-["sense_observations_x"] 
+["sense_observations_x"]
 
-["sense_observations_y"] 
+["sense_observations_y"]
 
 
 OUTPUT: values provided by the c++ program to the simulator
@@ -67,11 +67,11 @@ OUTPUT: values provided by the c++ program to the simulator
 
 ["best_particle_y"]
 
-["best_particle_theta"] 
+["best_particle_theta"]
 
 //Optional message data used for debugging particle's sensing and associations
 
-// for respective (x,y) sensed positions ID label 
+// for respective (x,y) sensed positions ID label
 
 ["best_particle_associations"]
 
@@ -100,10 +100,10 @@ root
 |   run.sh
 |
 |___data
-|   |   
+|   |
 |   |   map_data.txt
-|   
-|   
+|
+|
 |___src
     |   helper_functions.h
     |   main.cpp
@@ -117,7 +117,7 @@ The only file you should modify is `particle_filter.cpp` in the `src` directory.
 If you are interested, take a look at `src/main.cpp` as well. This file contains the code that will actually be running your particle filter and calling the associated methods.
 
 ## Inputs to the Particle Filter
-You can find the inputs to the particle filter in the `data` directory. 
+You can find the inputs to the particle filter in the `data` directory.
 
 #### The Map*
 `map_data.txt` includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
@@ -130,7 +130,7 @@ You can find the inputs to the particle filter in the `data` directory.
 > * Map data provided by 3D Mapping Solutions GmbH.
 
 ## Success Criteria
-If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass! 
+If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass!
 
 The things the grading code is looking for are:
 
@@ -142,5 +142,10 @@ The things the grading code is looking for are:
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
+# How to build using AWS EC2 Ubuntu 16.04.3
 
-
+    sudo apt-get update && sudo apt-get install -y cmake g++ make libssl-dev libuv1-dev git
+	git clone https://github.com/zasimov/CarND-Kidnapped-Vehicle-Project
+    cd CarND-Kidnapped-Vehicle-Project
+	git submodule update --init --recursive
+	mkdir build && cd build && cmake .. && make
